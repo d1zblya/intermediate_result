@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text">
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <img src="static/img/ava.png" alt="аватар" class="my-2 card-img-top">
+                    </div>
+                    <div class="col-10">
+                        <h6>{{user.name}}</h6>
+                        <div>Email: {{user.email}}</div>
+                        <div>Количество товаров: {{user.count_products}}</div>
+                        <div>Статус: {{user.status}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <h3 class="mx-1">Ваша область ответственности</h3>
+        <button data-bs-target="#add" data-bs-toggle="modal" class="btn btn-primary mx-1">Добавить</button>
+        <div class="modal" id="add" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Добавление товара или услуги</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="" class="form-horizontal">
+                        <div class="modal-body">
+                            {{ form.hidden_tag() }}
+                            {{ form.image.label}}
+                            {{ form.image(class="form-control py-2")}}
+                            {{ form.name(class="form-control my-2") }}
+                            {{ form.description(class="form-control my-2 py-2") }}
+                            {{ form.criterion.label }}
+                            {{ form.criterion(size=7) }}
+                        </div>
+                        <div class="modal-footer">
+                            {{ form.submit(type="submit", class="btn btn-primary")}}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for item in items %}
+    <div class="card my-3 go-to{{item.id}}">
+        <div class="card-body">
+            <div class="card-text">
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <img src="{{ url_for('static', filename='img/items/' + 'item' + item.id + '.png') }}"
+                             alt="товар" class="my-2 card-img-top">
+                    </div>
+                    <div class="col-7">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <div>{{item.description}}</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row m-0 mb-2 align-items-center d-flex justify-content-end p-0">
+                            {% for _ in range(0, item.stars) %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                 style="color: rgb(255, 168, 0);">
+                                <path fill="currentColor"
+                                      d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354">
+                                </path>
+                            </svg>
+                            {% endfor %}
+                            {% for _ in range(0, 5 - item.stars) %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                 style="color: rgba(0, 26, 52, 0.12);">
+                                <path fill="currentColor"
+                                      d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354">
+                                </path>
+                            </svg>
+                            {% endfor %}
+                            <div class="mx-1">{{item.rating}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.go-to{{item.id}}').onclick = function () {
+            location.href = 'reviews/{{item.id}}';
+        }
+    </script>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <h2 class="text-center">Личная информация</h2>
+            <div class="card my-3">
+                <div class="card-body row justify-content-center align-items-center">
+                    <img src="{{ url_for('static', filename='img/ava.png') }}" class="card-img-top mb-3 px-5"
+                         alt="Аватар">
+                    <ul class="list-group col-8 p-0">
+                        <li class="list-group-item text-center">
+                            {{user.username}}
+                        </li>
+                        <!--                        <li class="list-group-item text-center">-->
+                        <!--                            <p>{{user.email}}</p>-->
+                        <!--                        </li>-->
+                        <!--                        <li class="list-group-item">-->
+                        <!--                            <div class="row">-->
+                        <!--                                <div class="col-8 text-center">-->
+                        <!--                                    <p>******</p>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="col-2 text-center">-->
+                        <!--                                    <a href="/passwordreset" id="but_reset_password">Смена пароля</a>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </li>-->
+                        <li class="list-group-item text-center">
+                            {{user.email}}
+                        </li>
+                        <li class="list-group-item text-center">
+                            Всего отзывов: {{user.count_feedbacks}}
+                        </li>
+                        <li class="list-group-item text-center">
+                            {{rank}}
+                        </li>
+                        <li class="list-group-item text-center">
+                            До следующего ранга: {{rise}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <h2 class="text-center">Список отзывов</h2>
+            <div data-spy="scroll" class="scroll my-3">
+                {% for review in reviews %}
+                <div class="card mb-3 position-relative" data-toggle="modal" data-target="#full{{review['id']}}">
+                    <div class="card-body">
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col-2 text-center">
+                                    <p>Вы</p>
+                                </div>
+                                <div class="col-10">
+                                    <div class="row m-0 mb-2 align-items-center d-flex">
+                                        {% for _ in range(0, review.evaluation) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgb(255, 168, 0);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        {% for _ in range(0, 5 - review.evaluation) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgba(0, 26, 52, 0.12);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        <p class="date m-0 mx-3">{{ review.date }}</p>
+                                    </div>
+                                    <div class="my-2">
+                                        <p class="review-text">{{ review.text }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="full{{review['id']}}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ModalLabel">Отзыв</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="card my-3">
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            <div class="row">
+                                                <div class="col-2 text-center">
+                                                    <p>Вы</p>
+                                                </div>
+                                                <div class="col-10">
+                                                    <div class="row m-0 mb-2 align-items-center d-flex">
+                                                        {% for _ in range(0, review.evaluation) %}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                             viewBox="0 0 24 24"
+                                                             style="color: rgb(255, 168, 0);">
+                                                            <path fill="currentColor"
+                                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                                        </svg>
+                                                        {% endfor %}
+                                                        {% for _ in range(0, 5 - review.evaluation) %}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                             viewBox="0 0 24 24"
+                                                             style="color: rgba(0, 26, 52, 0.12);">
+                                                            <path fill="currentColor"
+                                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                                        </svg>
+                                                        {% endfor %}
+                                                        <p class="date m-0 mx-3">{{ review.date }}</p>
+                                                    </div>
+                                                    {% for key, value in review.criterion.items() %}
+                                                    <div><span class="criterion">{{key}}</span>: {{value}}</div>
+                                                    {% endfor %}
+                                                    <div class="my-2">
+                                                        {% if review.advantage != '' %}
+                                                        <div class="my-3">
+                                                            <div class="review-h">Достоинства</div>
+                                                            <div class="review-text">{{review.advantage}}</div>
+                                                        </div>
+                                                        {% endif %}
+                                                        {% if review.disadvantage != '' %}
+                                                        <div class="my-3">
+                                                            <div class="review-h">Недостатки</div>
+                                                            <div class="review-text">{{review.disadvantage}}</div>
+                                                        </div>
+                                                        {% endif %}
+                                                        {% if review.advantage != '' or review.disadvantage !=
+                                                        ''%}
+                                                        <div class="my-3">
+                                                            <div class="review-h">Комментарий</div>
+                                                            <p class="review-text">{{ review.text }}</p>
+                                                        </div>
+                                                        {% else %}
+                                                        <p class="review-text">{{ review.text }}</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

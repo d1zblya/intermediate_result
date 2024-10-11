@@ -1,0 +1,536 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <div class="card product-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="{{ url_for('static', filename='img/items/' + 'item' + item.id + '.png') }}"
+                                 alt="ава"
+                                 class="my-2 card-img-top">
+                        </div>
+                        <div class="col-8">
+                            <div class="row m-0">
+                                <h5 class="card-title">{{item.name}}</h5>
+                            </div>
+                            <div>{{item.description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col border p-2 my-3">
+                <div class="d-flex">
+                    {% for _ in range(0, item.stars) %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                         style="color: rgb(255, 168, 0);">
+                        <path fill="currentColor"
+                              d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                    </svg>
+                    {% endfor %}
+                    {% for _ in range(0, 5 - item.stars) %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                         style="color: rgba(0, 26, 52, 0.12);">
+                        <path fill="currentColor"
+                              d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                    </svg>
+                    {% endfor %}
+                    <div class="fs-24 ml-auto ">{{item.rating}}</div>
+                </div>
+                <hr class="my-0">
+                <div class="my-3">
+                    <div class="d-flex my-2 align-items-center">
+                        <div class="mx-1">5</div>
+                        <div class="progress w-100">
+                            <div class="progress-bar bg-rating" role="progressbar"
+                                 style="width: {{item.reviews_rating['5']}}%"
+                                 aria-valuenow="{{item.reviews_rating['5']}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex my-2 align-items-center">
+                        <div class="mx-1">4</div>
+                        <div class="progress w-100">
+                            <div class="progress-bar bg-rating" role="progressbar"
+                                 style="width: {{item.reviews_rating['4']}}%"
+                                 aria-valuenow="{{item.reviews_rating['4']}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex my-2 align-items-center">
+                        <div class="mx-1">3</div>
+                        <div class="progress w-100">
+                            <div class="progress-bar bg-rating" role="progressbar"
+                                 style="width: {{item.reviews_rating['3']}}%"
+                                 aria-valuenow="{{item.reviews_rating['3']}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex my-2 align-items-center">
+                        <div class="mx-1">2</div>
+                        <div class="progress w-100">
+                            <div class="progress-bar bg-rating" role="progressbar"
+                                 style="width: {{item.reviews_rating['2']}}%"
+                                 aria-valuenow="{{item.reviews_rating['2']}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex my-2 align-items-center">
+                        <div class="mx-1">1</div>
+                        <div class="progress w-100">
+                            <div class="progress-bar bg-rating" role="progressbar"
+                                 style="width: {{item.reviews_rating['1']}}%"
+                                 aria-valuenow="{{item.reviews_rating['1']}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="col-7">
+            <div data-spy="scroll" class="scroll bg-grey">
+                {% for review in reviews %}
+                <div class="card stroke mb-3 position-relative">
+                    <div class="card-body">
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col-3 text-center">
+                                    <img src="{{ url_for('static', filename='img/ava.png') }}" alt="ава"
+                                         class="my-2 card-img-top">
+                                    <p>{{ review.username }}</p>
+                                </div>
+                                <div class="col-9">
+                                    <div class="row m-0 mb-2 align-items-center d-flex">
+                                        {% for _ in range(0, review.evaluation) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgb(255, 168, 0);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        {% for _ in range(0, 5 - review.evaluation) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgba(0, 26, 52, 0.12);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        <p class="date m-0 mx-3">{{ review.date }}</p>
+                                    </div>
+                                    {% for key, value in review.criterion.items() %}
+                                    <div><span class="criterion">{{key}}</span>: {{value}}</div>
+                                    {% endfor %}
+                                    <div class="my-2">
+                                        {% if review.advantage != '' %}
+                                        <div class="my-3">
+                                            <div class="review-h">Достоинства</div>
+                                            <div class="review-text">{{review.advantage}}</div>
+                                        </div>
+                                        {% endif %}
+                                        {% if review.disadvantage != '' %}
+                                        <div class="my-3">
+                                            <div class="review-h">Недостатки</div>
+                                            <div class="review-text">{{review.disadvantage}}</div>
+                                        </div>
+                                        {% endif %}
+                                        {% if review.advantage != '' or review.disadvantage != ''%}
+                                        <div class="my-3">
+                                            <div class="review-h">Комментарий</div>
+                                            <p class="review-text">{{ review.text_feedback }}</p>
+                                        </div>
+                                        {% else %}
+                                        <p class="review-text">{{ review.text_feedback }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <form method="POST" action="" class="form-horizontal">
+        {{ form.hidden_tag() }}
+        <div class="modal" id="review0" tabindex="-1" aria-labelledby="lreview0" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-3"><img
+                                    src="{{ url_for('static', filename='img/items/' + 'item' + item.id + '.png') }}"
+                                    alt="товар" class="my-2 card-img-top">
+                            </div>
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-6 px-0">
+                                        <h5>{{ item.name }}</h5>
+                                    </div>
+                                    <div class="col-6 row m-0 mb-2 align-items-center d-flex">
+                                        {% for _ in range(0, item.stars) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgb(255, 168, 0);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        {% for _ in range(0, 5 - item.stars) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgba(0, 26, 52, 0.12);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        <div class="mx-1">{{item.rating}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">{{ item.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="row align-items-center h-100">
+                            <div class="col">
+                                <h5 class="text-center mb-3">Хотите ли Вы оставить отзыв?</h5>
+                                <div class="d-flex justify-content-center">
+                                    <a href="/" type="button" class="btn btn-secondary mx-2" data-dismiss="modal">Позже</a>
+                                    <button type="button" class="btn btn-primary mx-2" data-bs-target="#review1"
+                                            data-bs-toggle="modal">Да
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="review1" tabindex="-1" aria-labelledby="lreview1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-3"><img
+                                    src="{{ url_for('static', filename='img/items/' + 'item' + item.id + '.png') }}"
+                                    alt="товар" class="my-2 card-img-top">
+                            </div>
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-6 px-0">
+                                        <h5>{{ item.name }}</h5>
+                                    </div>
+                                    <div class="col-6 row m-0 mb-2 align-items-center d-flex">
+                                        {% for _ in range(0, item.stars) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgb(255, 168, 0);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        {% for _ in range(0, 5 - item.stars) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgba(0, 26, 52, 0.12);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        <div class="mx-1">{{item.rating}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">{{ item.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="row align-items-center h-100">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    {% for i in range(1, 6) %}
+                                    <input type="hidden" name="rating" value="{{i}}" id="star{{i}}"/>
+                                    <label class="m-0" for="star{{i}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24"
+                                             class="text-center" style="color: rgba(0, 26, 52, 0.12);">
+                                            <path class="star" fill="currentColor" data-value="{{i}}"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354">
+                                            </path>
+                                        </svg>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                                <p class="text-center text-tr">Общая оценка</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-target="#review2"
+                                data-bs-toggle="modal">Дальше
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="review2" tabindex="-1" aria-labelledby="lreview2" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-3"><img
+                                    src="{{ url_for('static', filename='img/items/' + 'item' + item.id + '.png') }}"
+                                    alt="товар" class="my-2 card-img-top">
+                            </div>
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-6 px-0">
+                                        <h5>{{ item.name }}</h5>
+                                    </div>
+                                    <div class="col-6 row m-0 mb-2 align-items-center d-flex">
+                                        {% for _ in range(0, item.stars) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgb(255, 168, 0);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        {% for _ in range(0, 5 - item.stars) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgba(0, 26, 52, 0.12);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        <div class="mx-1">{{item.rating}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">{{ item.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="row align-items-center h-100">
+                            <div class="col">
+                                {% for cr in item.criterion %}
+                                <div class="form-check">
+                                    <input class="form-check-input" onclick="chpok('{{cr}}'); newList()" type="checkbox"
+                                           value="" id="check1">
+                                    <label class="form-check-label" for="check1">
+                                        {{ cr }}
+                                    </label>
+                                </div>
+                                <div style="display: none;" id="{{cr}}">
+                                    {% for i in range(1, 6) %}
+                                    <input type="hidden" name="rating" value="{{i}}" id="star{{i}}"/>
+                                    <label class="m-0" for="star{{i}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                             viewBox="0 0 24 24" class="text-center"
+                                             style="color: rgba(0, 26, 52, 0.12);">
+                                            <path class="star_criterion" fill="currentColor" data-value="{{i}}"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354">
+                                            </path>
+                                        </svg>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-target="#review3"
+                                data-bs-toggle="modal">Дальше
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="review3" tabindex="-1" aria-labelledby="lreview3" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-3"><img
+                                    src="{{ url_for('static', filename='img/items/' + 'item' + item.id + '.png') }}"
+                                    alt="товар" class="my-2 card-img-top">
+                            </div>
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-6 px-0">
+                                        <h5>{{ item.name }}</h5>
+                                    </div>
+                                    <div class="col-6 row m-0 mb-2 align-items-center d-flex">
+                                        {% for _ in range(0, item.stars) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgb(255, 168, 0);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        {% for _ in range(0, 5 - item.stars) %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             viewBox="0 0 24 24"
+                                             style="color: rgba(0, 26, 52, 0.12);">
+                                            <path fill="currentColor"
+                                                  d="M9.358 6.136C10.53 4.046 11.117 3 12 3s1.47 1.045 2.643 3.136c.259.462.484 1.038.925 1.354.42.302 1.006.332 1.502.422 2.356.429 3.534.643 3.842 1.457q.034.09.057.182c.208.847-.632 1.581-2.316 3.313-.527.541-.766.798-.872 1.149-.097.325-.05.677.044 1.381.323 2.42.482 3.762-.21 4.31-1.24.98-3.24-.742-4.359-1.259C12.638 18.16 12.33 18 12 18s-.638.16-1.256.445c-1.12.517-3.119 2.24-4.358 1.258-.693-.547-.528-1.889-.205-4.309.094-.704.14-1.056.043-1.381-.105-.351-.345-.607-.872-1.15-1.684-1.73-2.529-2.465-2.32-3.312q.021-.093.056-.182c.308-.814 1.486-1.028 3.842-1.457.496-.09 1.083-.12 1.502-.422.441-.316.666-.893.926-1.354"></path>
+                                        </svg>
+                                        {% endfor %}
+                                        <div class="mx-1">{{item.rating}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">{{ item.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="row align-items-center h-100">
+                            <div class="col">
+                                {{ form.hidden_tag() }}
+                                {{ form.advantages(class="form-control") }}<br>
+                                {% for error in form.advantages.errors %}
+                                <p class="alert alert-danger" role="alert">{{ error }}</p>
+                                {% endfor %}
+                                {{ form.disadvantages(class="form-control") }}<br>
+                                {% for error in form.disadvantages.errors %}
+                                <p class="alert alert-danger" role="alert">{{ error }}</p>
+                                {% endfor %}
+                                {{ form.review(class="form-control") }}<br>
+                                {% for error in form.review.errors %}
+                                <p class="alert alert-danger" role="alert">{{ error }}</p>
+                                {% endfor %}
+                                {% for key, value in criteria.items() %}
+                                <label for="{{ key }}">{{ value }}</label>
+                                <input type="hidden" name="criterion_name_{{ key }}" value="{{ value }}">
+                                <input type="number" name="{{ key }}" min="1" max="5" class="form-control">
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-bs-target="#review4" data-bs-toggle="modal">
+                            {{ form.submit(type="submit", class="btn btn-primary")}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="review4" tabindex="-1" aria-labelledby="lreview4" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body ">
+                        <div class="row align-items-center h-100">
+                            <div class="col m-0">
+                                <h5 class="text-center">Спасибо за Ваш отзыв!</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        function chpok(id) {
+            elem = document.getElementById(id);
+            state = elem.style.display;
+            if (state == 'none') elem.style.display = '';
+            else elem.style.display = 'none';
+        }
+        let stars = document.querySelectorAll('.star');
+        let rating;
+
+        let starscr = document.querySelectorAll('.star_criterion');
+        console.log(stars)
+        stars.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                clearStars();
+                star.classList.add('hover');
+                let currentStar = star
+                fillStars(star.getAttribute('data-value'));
+                while (currentStar = currentStar.previousElementSibling) {
+                    currentStar.classList.add('hover');
+                }
+            });
+
+            star.addEventListener('mouseleave', () => {
+                clearStars();
+                if (rating) {
+                    fillStars(rating);
+                }
+            });
+
+            star.addEventListener('click', () => {
+                rating = star.getAttribute('data-value');
+                fillStars(rating);
+
+            });
+        });
+
+        function clearStars() {
+            stars.forEach(star => {
+                star.classList.remove('hover');
+                star.classList.remove('filled');
+            });
+        }
+
+        function fillStars(rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+        }
+        starscr.forEach(star => {
+            star.addEventListener('mouseover', () => {
+                clearStars();
+                star.classList.add('hover');
+                let currentStar = star
+                fillStarsCr(star.getAttribute('data-value'));
+                while (currentStar = currentStar.previousElementSibling) {
+                    currentStar.classList.add('hover');
+                }
+            });
+
+            star.addEventListener('mouseleave', () => {
+                clearStars();
+                if (rating) {
+                    fillStarsCr(rating);
+                }
+            });
+
+            star.addEventListener('click', () => {
+                rating = star.getAttribute('data-value');
+                fillStarsCr(rating);
+
+            });
+        });
+
+        function clearStarsCr() {
+            starscr.forEach(star => {
+                star.classList.remove('hover');
+                star.classList.remove('filled');
+            });
+        }
+
+        function fillStarsCr(rating) {
+            starscr.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+        }
+
+    </script>
+</div>
+<script>
+    var modal0 = new bootstrap.Modal(document.getElementById('review0'), {
+        keyboard: false
+    });
+
+</script>
+{% endblock %}
